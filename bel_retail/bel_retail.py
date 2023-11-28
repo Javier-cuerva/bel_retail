@@ -1,9 +1,16 @@
+import os
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
 from get_data import get_data_from_api
+
+
+# Changing python working directory to the one of the script for opening files
+base_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(base_dir)
 
 
 # Getting data from STATBEL API and defining data variables
@@ -24,11 +31,12 @@ indices = [
     "Deflated index (WDA)", "Deflated index (SA-WDA)"
 ]
 
-with open("cover.md", "r") as cover_file:
+text_folderpath = "text/"
+with open(text_folderpath + "cover.md", "r") as cover_file:
     cover_str = cover_file.read()
-with open("sb_cover.md", "r") as sb_cover_file:
+with open(text_folderpath + "sb_cover.md", "r") as sb_cover_file:
     sb_cover_str = sb_cover_file.read()
-with open("data_desc.md", "r") as data_desc_file:
+with open(text_folderpath + "data_desc.md", "r") as data_desc_file:
     data_desc_str = data_desc_file.read()
 
 # Generating containers
@@ -141,7 +149,7 @@ def sidebar(st_sidebar):
     total_chart_data = total_chart_data[total_chart_data["Month Name"].isin(selected_months)]
     total_chart_data = total_chart_data[total_chart_data["NACE groups"] == selected_cat]
     total_chart_data = total_chart_data[["Year", selected_index]].groupby(["Year"], as_index=False).sum()
-    fig_total_chart = px.line(total_chart_data, x="Year", y=selected_index, markers=True, color_discrete_sequence=[cat_color])
+    fig_total_chart = px.line(total_chart_data, x="Year", y=selected_index, markers=True, color_discrete_sequence=[cat_color], )
     fig_total_chart.update_layout(
         {
             "xaxis": {
