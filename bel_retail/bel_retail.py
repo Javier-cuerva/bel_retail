@@ -106,7 +106,7 @@ def ts(st_ts):
         }
     )
     fig.update_traces(hovertemplate=None)
-    below_col.plotly_chart(fig)
+    below_col.plotly_chart(fig, use_container_width=True)
 
 
 def sidebar(st_sidebar):
