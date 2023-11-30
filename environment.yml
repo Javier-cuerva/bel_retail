@@ -3,4 +3,5 @@ channels:
   - defaults
 dependencies:
   - pandas=2.1.1
-  # - plotly=5.9.0
+  - plotly=5.9.0
+  - conda-forge::streamlit=1.28.2
