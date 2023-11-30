@@ -22,7 +22,7 @@ month_format_func = lambda month : month.strftime("%b %Y")
 month_names = data["Month Name"].unique()
 categories = data["NACE groups"].unique()
 n_cats = len(categories)
-color_list = px.colors.qualitative.Bold[:n_cats]
+color_list = px.colors.qualitative.Alphabet[:n_cats]
 color_map = {cat: color for cat, color in zip(categories, color_list)}
 indices = [
     "Gross index", "Trend of the index",
@@ -154,8 +154,10 @@ def sidebar(st_sidebar):
         {
             "xaxis": {
                 "fixedrange": True,
+                "tickmode": "auto",
+                "tickwidth": 1,
+                "nticks": 8,
                 "tickangle": -45,
-                "dtick": 1,
                 "spikemode": 'toaxis',
                 "spikesnap": 'data',
             },
@@ -178,7 +180,7 @@ def sidebar(st_sidebar):
     growths_data_dict = {
         "Year": all_years[1:],
         "Growth": [year_val - prev_year_val for year_val, prev_year_val in zip(val_list[1:], val_list[:-1])],
-        "Growth (%)": [year_val/prev_year_val - 1 for year_val, prev_year_val in zip(val_list[1:], val_list[:-1])]
+        "Growth (%)": [float("nan") if prev_year_val==0 else year_val/prev_year_val - 1 for year_val, prev_year_val in zip(val_list[1:], val_list[:-1])]
     }
     growth_chart_data = pd.DataFrame(growths_data_dict)
     growths_color_seq = ["green" if growth > 0 else "red" for growth in growths_data_dict["Growth"]]
