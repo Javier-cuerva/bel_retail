@@ -113,7 +113,7 @@ def sidebar(st_sidebar):
     st_sidebar.markdown(sb_cover_str)
     st_sidebar.warning(
         body=(
-            "If the last year is not complete up to December"
+            "If the last year is not complete up to December "
             "and the non-updated months are included, the charts may show a sharp decline!"
         ),
         icon="⚠️"
